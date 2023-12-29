@@ -1,0 +1,200 @@
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<head>
+    <style>
+        img {
+            width: 100%;
+            height: auto;
+        }
+        img.header {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 75%;
+        }
+        
+        .text_centre {
+            max-width: 1200px;
+            margin: auto;
+        }
+        .body-text {
+            font-size: 125%;
+            line-height: 1.25;
+        }
+        .nav {
+            margin:0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+            text-align: center;
+            top: 0;
+            width: 100%;
+            position: -webkit-sticky;
+            position: sticky;
+        }
+
+        .nav a {
+            display: inline-block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .nav a:hover {
+            background-color: #111;
+        }
+
+        .nav .icon {
+            display: none;
+        }
+
+        @media screen and (max-width: 960px) {
+            .nav a:not(:first-child) {display: none;}
+            .nav a.icon {
+                float: right;
+                display: block;
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+            .nav.responsive a:not(:first-child) {
+                float: none;
+                display: block;
+                text-align: left;
+            }
+        }
+        
+        div.centred {
+            text-align: center;
+        }
+        
+        .button {
+            background-color: purple; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            margin-bottom: 20px;
+            margin-left: 10px;
+            margin-right: 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }        
+
+        .h_iframe iframe {
+            width:100%;
+            height:100%;
+        }        
+        
+        .h_iframe {
+            height: 100%;
+            width:100%;
+        }
+
+    </style>
+</head>
+
+<body style="font-family:Arial, Helvetica, sans-serif;">
+
+<ul class="nav" id="topNav">
+    <a href="https://kayvanrad.github.io/"><b>Home</b></a>  
+    <a href="#fbirn_qa_barplots">fBIRN QA bar plots</a>
+    <a href="#fbirn_qa_pca">fBIRN QA PCA</a>
+    <a href="#spatially_smoothed_pca">Spatial smoothing</a>
+    <a href="#anomalies_removed_pca">Anomaly detection</a>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+    </a>
+</ul>
+
+
+<div class="text_centre">
+    <h1 style="text-align:center">Resting-state fMRI quality assurance</h1>
+    <img class="header"
+    src="https://docs.google.com/drawings/d/e/2PACX-1vSAelCbIx2HmcLVfs7Nov7vTM4S-VRGqbOnpC5AWTOTuILqOpLP3SG_C4Wp2DQwuWQua_gDQQVJJPo4/pub?w=797&h=797"
+    alt="QA image">
+    <p class="body-text"><b>This page contains interactive figures identified by <span style="background-color: #008000; color: #ffffff;">Interactive</span>. The interative figures allow zooming in and out, panning, data subsetting (select data on the legend), and point lookup (hover over data on the plot).</b></p>
+</div>
+
+<div style="background-color: F7F7F7; padding: 5px">
+    <div class="text_centre body-text">
+        <p>Quality assurance is crucial in longitudinal and/or multi-site studies, which involve collection of data from a group of subjects over time and/or at different locations. It is crucial to regularly monitor the performance of the scanners over time and at different locations to detect and control for intrinsic differences (e.g., due to manufacturers) and changes in the scanner performance (e.g., due to gradual component aging, software and/or hardware upgrades, etc.) If these differences and changes are not controlled, they can add unexplained variance to the data.</p>
+
+        <p>As part of the Ontario Neurodegeneration Disease Research Initiative (ONDRI) and the Canadian Biomarker Integration Network in Depression (CAN-BIND) QA phantom scans were conducted approximately monthly for approximately four years at 13 sites across Canada with 3T research MRI scanners. We found considerable variance in the QA parameters over time for many sites as well as substantial variance across sites. We also identified an unexpected range of instabilities affecting individual slices in a number of scanners. These slice anomalies may amount to a substantial contribution to the signal variance and to the best of our knowledge these slice effects have not been reported before. In this dashboard/report I have summarized the main findings.</p>
+    </div>
+    <div class="centred">
+        <a class="button" href="https://github.com/kayvanrad/phantomQA">Github</a>
+        <a class="button" href="https://doi.org/10.1016/j.neuroimage.2021.118197">Paper</a>
+    </div>
+</div>
+
+<div class="text_centre body-text">
+    <h2>fBIRN QA parameters</h3>
+    <p>The <a href="https://www.nitrc.org/projects/bxh_xcede_tools/" title="fBIRN QA pipelie on NITRC">fBIRN QA pipeline</a> was employed to calculate QA parameters for each imaging session [Friedman and Glover, 2006]. The following interactive figure shows the PCA of the fBIRN QA variables:</p>
+
+    <a id="fbirn_qa_pca">
+    <div>
+    <div class="h_iframe">
+        <iframe frameborder="0" scrolling="no" src="//plotly.com/~imaginaerum/3.embed"></iframe>
+    </div>
+    <figcaption><span style="background-color: #008000; color: #ffffff;">Interactive</span> Figure 1 - Principal component analysis (PCA) of the fBIRN QA variables. Shown is the scatter plot of the first two principal components (PC1 and PC2) of the fBIRN QA variables for all the imaging sessions. Each imaging session is colour-coded by scan site and shape-coded by scanner manufacturer. The imaging sessions within each site are connected in temporal order of acquisition. The ellipses show 95% normal probabilities. The original fBIRN QA variables are also plotted using red arrows on the PCA plane with the lengths proportional to the variable loadings.</figcaption>
+    </div>
+    </a>
+
+    <h2>Spatial smoothing</h2>
+    <p>We tested the extent to which scanner differences in imaging resolution can be alleviated by smoothing the images to the greatest mean FWHM of all sites, as advocated by [Friedman et al., 2006].  Our data show that after spatial smoothing to 7 mm by AFNI’s 3dBlurToFWHM, scanner effects contribute to a lesser extent to the variance in minFWHM in the x and y directions, amounting to 12% and 20% reduction in ICC for minFWHMX and minFWHMY, respectively. Smoothing brings the minimum FWHM up to an approximately common value for all the scanners and reduces the variance of minFWHMX and minFWHMY by 81% and 71%, respectively. However, smoothing does not appear to remove and/or alleviate the anomalous sessions, indicating that these anomalies are potentially driven by factors other than differences in reconstruction resolution (Figure 2).</p>
+    <a id="spatially_smoothed_pca">
+    <div>
+    <div class="h_iframe">
+        <iframe frameborder="0" scrolling="no" src="//plotly.com/~imaginaerum/9.embed"></iframe>
+    </div>
+    <figcaption><span style="background-color: #008000; color: #ffffff;">Interactive</span> Figure 2 - Principal component analysis (PCA) of the fBIRN QA variables after spatial smoothing. Shown is the scatter plot of the first two principal components (PC1 and PC2) of the fBIRN QA variables for all the imaging sessions. Each imaging session is colour-coded by scan site and shape-coded by scanner manufacturer. The imaging sessions within each site are connected in temporal order of acquisition. The ellipses show 95% normal probabilities. The original fBIRN QA variables are also plotted using red arrows on the PCA plane with the lengths proportional to the variable loadings.</figcaption>
+    </div>
+    </a>    
+    
+    <h2>Anomalies</h2>
+    <p>In Figure 1 the imaging sessions within each site are connected in temporal order of acquisition. We observed prominent anomalous sessions in a number of sites (most strikingly in UCA, TWH, SMH, UBC, and TBR).</p>
+
+    <p>Figure 1 also shows the original fBIRN QA variables on the PCA plane of the first two principal components. As expected, FWHM is one of the main factors driving the variance between the manufacturers [Friedman et al., 2006]. In particular, the minFWHM along with signal-to-noise measures drives the between-manufacturer difference between the GE/Philips (lower left) versus Siemens (upper right) clusters. Simultaneously, maxFWHM along with various measures of temporal noise (e.g., percentFluc), which are almost orthogonal to minFWHM, drive the outlying sessions.</p>
+
+    <h3>Anomaly detection using autocorrelation function (ACF) analysis</h3>
+    <p>Since FWHM appears to be a main factor driving the between-site variance as well as the anomalies, we looked at an independent slice-wise measure of resolution using autocorrelation function (ACF) analysis. This was motivated by two factors: (1) to provide an independent measure of FWHM, and (2) to calculate slice-wise measures of FWHM, as our primary investigation of the anomalous images hinted at possible slice effects. 
+    </p>
+
+    <p>The slice ACF measurements of FWHM reveal slice instabilities within the anomalous scan sessions, which can result in unexplained variance in the data.  These instabilities can be detected using slice ACF measurements of FWHM and can, under certain circumstances, be controlled by preprocessing. When preprocessing is not effective in controlling these instabilities, the affected scan sessions can be detected using slice ACF FWHM values and excluded in subsequent analysis.
+    </p>
+
+    <p>Figure 3 shows PCA analysis of the fBIRN QA after detecting and excluding the anomalies using the slice ACF FWHM values. Compare this figure with Figure 1, in which a number of anomalous scan sessions are present.</p>
+
+    <a id="anomalies_removed_pca">
+    <div>
+    <div class="h_iframe">
+        <iframe frameborder="0" scrolling="no" src="//plotly.com/~imaginaerum/5.embed"></iframe>
+    </div>
+    <figcaption><span style="background-color: #008000; color: #ffffff;">Interactive</span> Figure 3 - Principal component analysis (PCA) of the fBIRN QA variables after removal of the anomalous scan sessions within each site using slice ACF FWHM measurements. Shown is the scatter plot of the first two principal components (PC1 and PC2) of the fBIRN QA variables for all the imaging sessions. Each imaging session is colour-coded by scan site and shape-coded by scanner manufacturer. The imaging sessions within each site are connected in temporal order of acquisition. The ellipses show 95% normal probabilities. The original fBIRN QA variables are also plotted using red arrows on the PCA plane with the lengths proportional to the variable loadings.</figcaption>
+    </div>
+    </a>
+
+    <h1>References</h1>
+    <p>Friedman L, Glover GH (2006): Report on a multicenter fMRI quality assurance protocol. J Magn Reson Imaging 23:827–839.</p>
+    <p>Friedman L, Glover GH, Krenz D, Magnotta V, FIRST BIRN (2006): Reducing inter-scanner variability of activation in a multicenter fMRI study: role of smoothness equalization. NeuroImage 32:1656–1668.</p>
+
+</div>
+
+<script>
+    function myFunction() {
+      var x = document.getElementById("topNav");
+      if (x.className === "nav") {
+        x.className += " responsive";
+      } else {
+        x.className = "nav";
+      }
+    }
+</script>
+
+</body>
+</html>
